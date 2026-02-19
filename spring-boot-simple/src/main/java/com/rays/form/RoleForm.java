@@ -1,9 +1,16 @@
 package com.rays.form;
 
+import javax.validation.constraints.NotEmpty;
+
 public class RoleForm {
-	
+
 	private Long id = null;
+
+	@NotEmpty(message = "Role name is required")
+	private String name;
 	
+	@NotEmpty(message = "Description is required")
+	private String description;
 	public Long getId() {
 		return id;
 	}
@@ -12,9 +19,6 @@ public class RoleForm {
 		this.id = id;
 	}
 
-	private String name;
-	
-	private String description;
 
 	public String getName() {
 		return name;
