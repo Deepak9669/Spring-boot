@@ -6,11 +6,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Columns;
 
-import com.rays.common.BaseDto;
+import com.rays.common.BaseDTO;
 
 @Entity
 @Table(name = "ST_ROLE")
-public class RoleDTO extends BaseDto {
+public class RoleDTO extends BaseDTO {
 	
 	public String getName() {
 		return name;

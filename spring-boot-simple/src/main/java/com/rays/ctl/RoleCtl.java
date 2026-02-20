@@ -40,8 +40,7 @@ public class RoleCtl extends BaseCtl {
 
 		RoleDTO dto = new RoleDTO();
 
-		dto.setName(form.getName());
-		dto.setDescription(form.getDescription());
+		dto = (RoleDTO) form.getDto();
 
 		long id = RoleService.add(dto);
 
@@ -118,14 +117,17 @@ public class RoleCtl extends BaseCtl {
 
 	}
 
-	@RequestMapping(value = "/search{pageNo}", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "search/{pageNo}", method = { RequestMethod.GET, RequestMethod.POST })
 	public ORSResponse search(@RequestBody RoleForm form, @PathVariable(required = false) int pageNo) {
 
 		ORSResponse res = new ORSResponse();
 
 		int pageSize = 5;
+		RoleDTO dto = new RoleDTO();
 
-		List<RoleDTO> list = RoleService.search(null, pageNo, pageSize);
+		dto = (RoleDTO) form.getDto();
+
+		List<RoleDTO> list = RoleService.search(dto, pageNo, pageSize);
 
 		if (list.size() > 0) {
 			res.setSuccess(true);

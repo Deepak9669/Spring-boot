@@ -6,10 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.rays.common.BaseDto;
+import com.rays.common.BaseDTO;
 @Entity
 @Table(name = "st_user")
-public class UserDTO extends BaseDto {
+public class UserDTO extends BaseDTO {
 	
 	
 	public String getFirstName() {

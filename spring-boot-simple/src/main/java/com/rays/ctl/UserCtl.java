@@ -40,12 +40,7 @@ public class UserCtl extends BaseCtl {
 		}
 		UserDTO dto = new UserDTO();
 
-		dto.setFirstName(form.getFirstName());
-		dto.setLastName(form.getLastName());
-		dto.setLoginId(form.getLoginId());
-		dto.setDob(form.getDob());
-		dto.setPassword(form.getPassword());
-		dto.setRoleId(form.getRoleId());
+		dto = (UserDTO) form.getDto();
 
 		long id = userService.add(dto);
 
@@ -69,13 +64,8 @@ public class UserCtl extends BaseCtl {
 
 		}
 		UserDTO dto = new UserDTO();
-		dto.setId(form.getId());
-		dto.setFirstName(form.getFirstName());
-		dto.setLastName(form.getLastName());
-		dto.setLoginId(form.getLoginId());
-		dto.setDob(form.getDob());
-		dto.setPassword(form.getPassword());
-		dto.setRoleId(form.getRoleId());
+
+		dto = (UserDTO) form.getDto();
 
 		userService.update(dto);
 
@@ -92,7 +82,6 @@ public class UserCtl extends BaseCtl {
 
 		ORSResponse res = new ORSResponse();
 
-
 		if (ids != null && ids.length > 0) {
 			for (long id : ids) {
 				userService.delete(id);
@@ -107,6 +96,7 @@ public class UserCtl extends BaseCtl {
 		}
 		return res;
 	}
+
 	@GetMapping("get/{id}")
 	public ORSResponse get(@PathVariable(required = false) long id) {
 
@@ -123,15 +113,18 @@ public class UserCtl extends BaseCtl {
 		return res;
 
 	}
-	
-	@RequestMapping( value = "/search{pageNo}" ,method = {RequestMethod.GET,RequestMethod.POST})
-	public ORSResponse search(@RequestBody UserForm form ,@PathVariable(required = false) int pageNo) {
-		
-		ORSResponse res = new ORSResponse();
-		
-		int pageSize = 5;
 
-		List<UserDTO> list = userService.search(null, pageNo, pageSize);
+	@RequestMapping(value = "search/{pageNo}", method = { RequestMethod.GET, RequestMethod.POST })
+	public ORSResponse search(@RequestBody UserForm form, @PathVariable(required = false) int pageNo) {
+
+		ORSResponse res = new ORSResponse();
+
+		int pageSize = 5;
+		UserDTO dto = new UserDTO();
+
+		dto = (UserDTO) form.getDto();
+
+		List<UserDTO> list = userService.search(dto, pageNo, pageSize);
 
 		if (list.size() > 0) {
 			res.setSuccess(true);
@@ -141,8 +134,6 @@ public class UserCtl extends BaseCtl {
 
 		return res;
 
-	
-		
 	}
 
 }
