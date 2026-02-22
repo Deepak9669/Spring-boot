@@ -1,5 +1,7 @@
 package com.rays.dto;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,26 +12,65 @@ import com.rays.common.BaseDTO;
 @Table(name = "ST_STUDENT")
 public class StudentDTO extends BaseDTO {
 
-	@Column(name ="NAME")
-	private String name;
+	private String firstName;
+	private String lastName;
+	private Date dob;
+	private String gender;
+	private String mobileNo;
+	private String email;
+	private String collegeId;
+	private String collegeName;
 	
-	@Column(name = "COURSE")
-	private String course;
-
-	public String getName() {
-		return name;
+	
+	public String getFirstName() {
+		return firstName;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-
-	public String getCourse() {
-		return course;
+	public String getLastName() {
+		return lastName;
 	}
-
-	public void setCourse(String course) {
-		this.course = course;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
+	public Date getDob() {
+		return dob;
+	}
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getMobileNo() {
+		return mobileNo;
+	}
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getCollegeId() {
+		return collegeId;
+	}
+	public void setCollegeId(String collegeId) {
+		this.collegeId = collegeId;
+	}
+	public String getCollegeName() {
+		return collegeName;
+	}
+	public void setCollegeName(String collegeName) {
+		this.collegeName = collegeName;
+	}
+	
+	
 
 }

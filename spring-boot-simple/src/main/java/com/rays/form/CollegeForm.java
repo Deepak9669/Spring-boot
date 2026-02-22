@@ -1,28 +1,22 @@
-package com.rays.dto;
+package com.rays.form;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.rays.common.BaseDTO;
+import com.rays.common.BaseForm;
+import com.rays.dto.CollegeDTO;
 
-@Entity
-@Table(name = "ST_COLLEGE")
-public class CollegeDTO extends BaseDTO {
+public class CollegeForm extends BaseForm {
 
-	@Column(name = "NAME")
+	@NotEmpty(message = "name is required")
 	private String name;
-
-	@Column(name = "ADDRESS")
+	@NotEmpty(message = "address is required")
 	private String address;
-
-	@Column(name = "STATE")
+	@NotEmpty(message = "statae is required")
 	private String state;
-
-	@Column(name = "CITY")
+	@NotEmpty(message = "city is required")
 	private String city;
-
-	@Column(name = "PHONE_NO")
+	@NotEmpty(message = "phone No is required")
 	private String phoneNo;
 
 	public String getName() {
@@ -63,6 +57,18 @@ public class CollegeDTO extends BaseDTO {
 
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
+	}
+
+	@Override
+	public BaseDTO getDto() {
+		CollegeDTO dto = new CollegeDTO();
+		dto.setName(name);
+		dto.setAddress(address);
+		dto.setState(state);
+		dto.setCity(city);
+		dto.setPhoneNo(phoneNo);
+		
+		return dto;
 	}
 
 }

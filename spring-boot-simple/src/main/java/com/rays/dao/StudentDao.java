@@ -11,9 +11,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rays.dto.CollegeDTO;
+import com.rays.dto.RoleDTO;
 import com.rays.dto.StudentDTO;
+import com.rays.dto.UserDTO;
 
 @Repository
 public class StudentDao {
@@ -21,13 +25,25 @@ public class StudentDao {
 	@PersistenceContext
 	public EntityManager entityManager;
 
+	@Autowired
+	CollegeDao collegeDao;
+
+	public void populate(CollegeDTO dto) {
+		if (dto.getName() != null && dto.getName().length() > 0) {
+
+			CollegeDTO collegeDTO = collegeDao.findByPk(dto.getId());
+			dto.setName(collegeDTO.getName());
+		}
+
+	}
+
 	public long add(StudentDTO dto) {
 		entityManager.persist(dto);
 		return dto.getId();
 
 	}
 
-	public void delete(StudentDao dto) {
+	public void delete(StudentDTO dto) {
 		entityManager.remove(dto);
 
 	}
@@ -57,12 +73,12 @@ public class StudentDao {
 
 		if (dto != null) {
 
-			if (dto.getName() != null && dto.getName().length() > 0) {
-				predicateList.add(builder.like(qRoot.get("name"), dto.getName() + "%"));
+			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
+				predicateList.add(builder.like(qRoot.get("firstName"), dto.getFirstName() + "%"));
 
 			}
-			if (dto.getCourse() != null && dto.getCourse().length() > 0) {
-				predicateList.add(builder.like(qRoot.get("course"), dto.getCourse() + "%"));
+			if (dto.getLastName() != null && dto.getLastName().length() > 0) {
+				predicateList.add(builder.like(qRoot.get("lastName"), dto.getLastName() + "%"));
 
 			}
 

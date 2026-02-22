@@ -56,20 +56,24 @@ public class RoleDao {
 		CriteriaQuery<RoleDTO> cq = builder.createQuery(RoleDTO.class);
 
 		List<Predicate> predicateList = new ArrayList<Predicate>();
-		
+
 		// Root: entity class ko represent karta hai (FROM RoleDTO)
 		Root<RoleDTO> qRoot = cq.from(RoleDTO.class);
 
-		if(dto != null) {
-			if(dto.getName() != null && dto.getName().length()>0) {
-				predicateList.add(builder.like(qRoot.get("name"), dto.getName() +"%"));
-				
+		if (dto != null) {
+			if (dto.getName() != null && dto.getName().length() > 0) {
+				predicateList.add(builder.like(qRoot.get("name"), dto.getName() + "%"));
+
 			}
-			
+			if (dto.getDescription() != null && dto.getDescription().length() > 0) {
+				predicateList.add(builder.like(qRoot.get("description"), dto.getDescription() + "%"));
+
+			}
+
 		}
-		
+
 //		cq.select(qRoot);
-		
+
 		cq.where(predicateList.toArray(new Predicate[predicateList.size()]));
 
 		// EntityManager se seletct ki actual query create ho rahi hai
