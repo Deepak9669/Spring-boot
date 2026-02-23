@@ -70,6 +70,11 @@ public class StudentDTO extends BaseDTO {
 	public void setCollegeName(String collegeName) {
 		this.collegeName = collegeName;
 	}
+	@Override
+	public String getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

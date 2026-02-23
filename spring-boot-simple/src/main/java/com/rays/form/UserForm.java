@@ -11,23 +11,27 @@ import com.rays.dto.UserDTO;
 
 public class UserForm extends BaseForm {
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "firstName is required")
 	private String firstName;
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "lastName is required")
 	private String lastName;
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "loginId is required")
 	private String loginId;
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "password is required")
 	private String password;
 
-	@NotNull(message = "first name is required")
+	@NotNull(message = "Date of birth is required")
 	private Date dob;
 
-	@NotNull(message = "first name is required")
-	private Long roleId;
+	private long roleId;
+
+	private Long imageId;
+
+	public UserForm() {
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -69,25 +73,31 @@ public class UserForm extends BaseForm {
 		this.dob = dob;
 	}
 
-	public Long getRoleId() {
+	public long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Long roleId) {
+	public void setRoleId(long roleId) {
 		this.roleId = roleId;
+	}
+
+	public Long getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
 	}
 
 	@Override
 	public BaseDTO getDto() {
-		UserDTO dto = new UserDTO();
-		dto = (UserDTO) initDTO(dto);
-
+		UserDTO dto = (UserDTO) initDTO(new UserDTO());
 		dto.setFirstName(firstName);
 		dto.setLastName(lastName);
 		dto.setLoginId(loginId);
 		dto.setPassword(password);
-		dto.setRoleId(roleId);
 		dto.setDob(dob);
+		dto.setRoleId(roleId);
 
 		return dto;
 	}

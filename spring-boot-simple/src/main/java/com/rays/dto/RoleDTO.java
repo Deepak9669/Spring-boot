@@ -28,5 +28,10 @@ public class RoleDTO extends BaseDTO {
 	private String name;
 	@Column(name = "DESCRIPTION")
 	private String description;
+	@Override
+	public String getValue() {
+		// TODO Auto-generated method stub
+		return name;
+	}
 
 }

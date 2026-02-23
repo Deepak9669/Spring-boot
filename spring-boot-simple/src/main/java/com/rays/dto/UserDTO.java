@@ -100,5 +100,11 @@ public class UserDTO extends BaseDTO {
 		this.roleName = roleName;
 	}
 
+	@Override
+	public String getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

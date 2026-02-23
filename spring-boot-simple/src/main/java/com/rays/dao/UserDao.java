@@ -14,8 +14,10 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rays.dto.AttachmentDTO;
 import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
+import com.rays.service.AttachmentService;
 
 @Repository
 public class UserDao {
@@ -25,6 +27,9 @@ public class UserDao {
 
 	@Autowired
 	RoleDao dao;
+	
+	@Autowired
+	AttachmentService attachmentService;
 
 	public void populate(UserDTO dto) {
 		if (dto.getRoleId() != null && dto.getRoleId() > 0) {
@@ -48,8 +53,17 @@ public class UserDao {
 	}
 
 	public void delete(UserDTO dto) {
+
+		if (dto.getImageId() != null && dto.getImageId() > 0) {
+			AttachmentDTO adto = attachmentService.findById(dto.getImageId());
+			if (adto != null) {
+				attachmentService.delete(adto.getId());
+			}
+		}
+
 		entityManager.remove(dto);
 	}
+
 
 	public UserDTO findByPk(long pk) {
 		UserDTO dto = entityManager.find(UserDTO.class, pk);
@@ -93,5 +107,34 @@ public class UserDao {
 		list = tq.getResultList();
 
 		return list;
+	}
+	
+	public UserDTO findByUniqueKey(String attribute, String value) {
+
+		List<UserDTO> list = null;
+
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+		CriteriaQuery<UserDTO> cq = builder.createQuery(UserDTO.class);
+
+		Root<UserDTO> qRoot = cq.from(UserDTO.class);
+
+		Predicate condition = builder.equal(qRoot.get(attribute), value);
+
+		cq.where(condition);
+
+		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
+
+		list = tq.getResultList();
+
+		UserDTO dto = null;
+
+		if (list.size() > 0) {
+
+			dto = list.get(0);
+
+		}
+
+		return dto;
 	}
 }
